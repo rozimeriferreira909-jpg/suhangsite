@@ -43,8 +43,58 @@ const Hero = () => {
             className="text-center text-[40px] md:text-5xl lg:text-6xl"
           />
 
-          <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
-            你好！我是苏航，一名全栈工程师 & AI 应用开发者
+          <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl inline-flex items-center justify-center flex-wrap gap-2">
+            <span>你好！我是苏航，一名全栈工程师 & AI 产品经理</span>
+            <svg
+              viewBox="0 0 11 10"
+              xmlns="http://www.w3.org/2000/svg"
+              shapeRendering="crispEdges"
+              aria-hidden="true"
+              className="inline-block align-middle h-[1em] w-auto animate-pulse"
+              style={{ imageRendering: "pixelated" }}
+            >
+              {/* pixel-art heart (highlight + body + outline) */}
+              <g>
+                {/* outline */}
+                <rect x="1" y="1" width="2" height="1" fill="#E2366B" />
+                <rect x="3" y="1" width="1" height="1" fill="#FF6B9D" />
+                <rect x="4" y="2" width="1" height="1" fill="#FF6B9D" />
+                <rect x="0" y="2" width="1" height="1" fill="#E2366B" />
+                <rect x="5" y="2" width="1" height="1" fill="#E2366B" />
+                <rect x="6" y="1" width="2" height="1" fill="#E2366B" />
+                <rect x="8" y="2" width="1" height="1" fill="#E2366B" />
+                <rect x="9" y="2" width="1" height="1" fill="#E2366B" />
+                {/* body row 2 */}
+                <rect x="1" y="2" width="2" height="1" fill="#FF6B9D" />
+                <rect x="3" y="2" width="1" height="1" fill="#FFB5CE" />
+                <rect x="6" y="2" width="2" height="1" fill="#FF6B9D" />
+                {/* row 3 */}
+                <rect x="0" y="3" width="1" height="1" fill="#E2366B" />
+                <rect x="1" y="3" width="1" height="1" fill="#FFB5CE" />
+                <rect x="2" y="3" width="6" height="1" fill="#FF6B9D" />
+                <rect x="8" y="3" width="1" height="1" fill="#FF6B9D" />
+                <rect x="9" y="3" width="1" height="1" fill="#E2366B" />
+                {/* row 4 */}
+                <rect x="0" y="4" width="1" height="1" fill="#E2366B" />
+                <rect x="1" y="4" width="8" height="1" fill="#FF6B9D" />
+                <rect x="9" y="4" width="1" height="1" fill="#E2366B" />
+                {/* row 5 */}
+                <rect x="1" y="5" width="1" height="1" fill="#E2366B" />
+                <rect x="2" y="5" width="6" height="1" fill="#FF6B9D" />
+                <rect x="8" y="5" width="1" height="1" fill="#E2366B" />
+                {/* row 6 */}
+                <rect x="2" y="6" width="1" height="1" fill="#E2366B" />
+                <rect x="3" y="6" width="4" height="1" fill="#FF6B9D" />
+                <rect x="7" y="6" width="1" height="1" fill="#E2366B" />
+                {/* row 7 */}
+                <rect x="3" y="7" width="1" height="1" fill="#E2366B" />
+                <rect x="4" y="7" width="2" height="1" fill="#FF6B9D" />
+                <rect x="6" y="7" width="1" height="1" fill="#E2366B" />
+                {/* tip */}
+                <rect x="4" y="8" width="1" height="1" fill="#E2366B" />
+                <rect x="5" y="8" width="1" height="1" fill="#E2366B" />
+              </g>
+            </svg>
           </p>
 
           <a href="#about">
