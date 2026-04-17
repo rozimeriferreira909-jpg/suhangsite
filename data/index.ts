@@ -51,7 +51,8 @@ export const gridItems = [
     title: "正在打造个人 AI 创意工具平台",
     description: "最新动态",
     className: "md:col-span-3 md:row-span-2",
-    imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
+    imgClassName:
+      "absolute right-0 bottom-0 md:w-96 w-60 mix-blend-screen animate-[spin_40s_linear_infinite]",
     titleClassName: "justify-center md:justify-start lg:justify-center",
     img: "/network-graph.png",
     spareImg: "/grid.svg",
