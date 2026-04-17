@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Phase 4: 质量保障 - Shield + scan lines -->
+  <!-- Outer glow ring -->
+  <circle cx="60" cy="58" r="42" stroke="#ff3366" stroke-width="0.5" opacity="0.2"/>
+  <circle cx="60" cy="58" r="38" stroke="#ff3366" stroke-width="0.5" opacity="0.3">
+    <animate attributeName="r" values="38;40;38" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Shield shape -->
+  <path d="M60 22 L88 36 L88 62 C88 80 72 96 60 100 C48 96 32 80 32 62 L32 36 Z"
+        fill="#0a0a1a" stroke="#ff3366" stroke-width="1.5"/>
+  <path d="M60 22 L88 36 L88 62 C88 80 72 96 60 100 C48 96 32 80 32 62 L32 36 Z"
+        fill="url(#shieldGrad)" opacity="0.15"/>
+  <!-- Scan line sweeping down -->
+  <line x1="38" y1="40" x2="82" y2="40" stroke="#00e5ff" stroke-width="1" opacity="0.8">
+    <animate attributeName="y1" values="30;90;30" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="30;90;30" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite"/>
+  </line>
+  <!-- Check marks for passed tests -->
+  <g transform="translate(48, 42)">
+    <text font-family="monospace" font-size="7" fill="#84ff57">✓ Unit</text>
+  </g>
+  <g transform="translate(48, 54)">
+    <text font-family="monospace" font-size="7" fill="#84ff57">✓ E2E</text>
+  </g>
+  <g transform="translate(48, 66)">
+    <text font-family="monospace" font-size="7" fill="#ffb830">⟳ Sec</text>
+    <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+  </g>
+  <!-- Lock icon at center top of shield -->
+  <rect x="55" y="30" width="10" height="8" rx="2" fill="none" stroke="#ff3366" stroke-width="1"/>
+  <path d="M57 30 L57 27 A3 3 0 0 1 63 27 L63 30" fill="none" stroke="#ff3366" stroke-width="1"/>
+  <circle cx="60" cy="34" r="1.2" fill="#ff3366"/>
+  <!-- Coverage percentage -->
+  <text x="60" y="82" font-family="monospace" font-size="9" fill="#84ff57" text-anchor="middle" font-weight="bold">98.2%</text>
+  <text x="60" y="90" font-family="monospace" font-size="5" fill="#56526a" text-anchor="middle">coverage</text>
+  <defs>
+    <linearGradient id="shieldGrad" x1="60" y1="22" x2="60" y2="100">
+      <stop offset="0%" stop-color="#ff3366"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+</svg>

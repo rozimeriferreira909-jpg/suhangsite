@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Phase 2: 设计 - Holographic UI wireframe -->
+  <rect x="20" y="20" width="80" height="80" rx="6" fill="#0a0a1a" stroke="#00e5ff" stroke-width="0.8" opacity="0.6"/>
+  <!-- Grid lines -->
+  <line x1="20" y1="40" x2="100" y2="40" stroke="#00e5ff" stroke-width="0.4" opacity="0.3"/>
+  <line x1="20" y1="60" x2="100" y2="60" stroke="#00e5ff" stroke-width="0.4" opacity="0.3"/>
+  <line x1="20" y1="80" x2="100" y2="80" stroke="#00e5ff" stroke-width="0.4" opacity="0.3"/>
+  <line x1="50" y1="20" x2="50" y2="100" stroke="#00e5ff" stroke-width="0.4" opacity="0.3"/>
+  <line x1="75" y1="20" x2="75" y2="100" stroke="#00e5ff" stroke-width="0.4" opacity="0.3"/>
+  <!-- Wireframe elements -->
+  <rect x="26" y="26" width="20" height="10" rx="2" fill="none" stroke="#a855f7" stroke-width="1.2"/>
+  <rect x="26" y="44" width="42" height="28" rx="3" fill="#a855f7" fill-opacity="0.1" stroke="#a855f7" stroke-width="1"/>
+  <rect x="74" y="44" width="20" height="12" rx="2" fill="#00e5ff" fill-opacity="0.1" stroke="#00e5ff" stroke-width="1"/>
+  <rect x="74" y="60" width="20" height="12" rx="2" fill="#00e5ff" fill-opacity="0.1" stroke="#00e5ff" stroke-width="1"/>
+  <!-- Color palette dots -->
+  <circle cx="30" cy="88" r="4" fill="#ff3366"/>
+  <circle cx="42" cy="88" r="4" fill="#a855f7"/>
+  <circle cx="54" cy="88" r="4" fill="#00e5ff"/>
+  <circle cx="66" cy="88" r="4" fill="#84ff57"/>
+  <!-- Cursor -->
+  <path d="M82 82 L82 96 L87 92 L92 98" stroke="#ffb830" stroke-width="1.5" stroke-linecap="round">
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <!-- Measurement lines -->
+  <line x1="26" y1="38" x2="68" y2="38" stroke="#84ff57" stroke-width="0.6" stroke-dasharray="2 2"/>
+  <text x="40" y="37" font-family="monospace" font-size="5" fill="#84ff57">320px</text>
+  <!-- Floating label -->
+  <rect x="52" y="24" width="30" height="10" rx="2" fill="#ff3366" fill-opacity="0.15" stroke="#ff3366" stroke-width="0.6"/>
+  <text x="57" y="31" font-family="monospace" font-size="5.5" fill="#ff3366">Design</text>
+</svg>
