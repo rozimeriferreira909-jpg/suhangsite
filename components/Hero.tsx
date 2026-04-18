@@ -5,7 +5,7 @@ import { FaLocationArrow } from "react-icons/fa6";
 import MagicButton from "./MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
-import { PixelatedCanvas } from "./ui/pixelated-canvas";
+import { ShatterAvatar } from "./ui/ShatterAvatar";
 
 const Hero = () => {
   return (
@@ -96,29 +96,9 @@ const Hero = () => {
             />
           </a>
 
-          {/* Pixelated Canvas 头像 */}
+          {/* Pixelated Canvas 头像（点击触发全局破碎 → 猫图「营业中·欢迎光临」→ 2s 后破碎回原图） */}
           <div className="mt-16">
-            <PixelatedCanvas
-              src="/avatar.jpg"
-              width={340}
-              height={420}
-              cellSize={3}
-              dotScale={0.88}
-              shape="square"
-              backgroundColor="#000319"
-              dropoutStrength={0.3}
-              interactive
-              distortionStrength={4}
-              distortionRadius={90}
-              distortionMode="swirl"
-              followSpeed={0.15}
-              jitterStrength={3}
-              jitterSpeed={3}
-              sampleAverage
-              tintColor="#CBACF9"
-              tintStrength={0.1}
-              className="rounded-2xl border border-white/[0.1] shadow-[0_0_40px_rgba(203,172,249,0.15)]"
-            />
+            <ShatterAvatar />
           </div>
         </div>
       </div>
