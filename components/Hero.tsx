@@ -6,10 +6,14 @@ import MagicButton from "./MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 import { PixelatedCanvas } from "./ui/pixelated-canvas";
+import { InteractiveStarfield } from "./ui/InteractiveStarfield";
 
 const Hero = () => {
   return (
-    <div className="pb-20 pt-36">
+    <div className="pb-20 pt-36 relative">
+      {/* 鼠标交互星空背景（向下滚动渐隐） */}
+      <InteractiveStarfield className="fixed inset-0 z-0" />
+
       <div>
         <Spotlight
           className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
@@ -22,13 +26,14 @@ const Hero = () => {
         <Spotlight className="left-80 top-28 h-[80vh] w-[50vw]" fill="blue" />
       </div>
 
+      {/* 移除原 bg-black-100 实心底，露出下方星空；保留网格纹理和 vignette */}
       <div
-        className="h-screen w-full dark:bg-black-100 bg-white dark:bg-grid-white/[0.03] bg-grid-black-100/[0.2]
-       absolute top-0 left-0 flex items-center justify-center"
+        className="h-screen w-full dark:bg-grid-white/[0.03] bg-grid-black-100/[0.2]
+       absolute top-0 left-0 flex items-center justify-center pointer-events-none"
       >
         <div
-          className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100
-         bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
+          className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100/40
+         bg-white/40 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
         />
       </div>
 
