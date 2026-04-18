@@ -6,14 +6,10 @@ import MagicButton from "./MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 import { PixelatedCanvas } from "./ui/pixelated-canvas";
-import { InteractiveStarfield } from "./ui/InteractiveStarfield";
 
 const Hero = () => {
   return (
     <div className="pb-20 pt-36 relative">
-      {/* 鼠标交互星空背景（向下滚动渐隐） */}
-      <InteractiveStarfield className="fixed inset-0 z-0" />
-
       <div>
         <Spotlight
           className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
