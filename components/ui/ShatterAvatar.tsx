@@ -2,17 +2,17 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { PixelatedCanvas } from "./pixelated-canvas";
-
 const W = 340;
 const H = 420;
-const CELL = 4; // 粒子粒度（像素格边长）
-const DOT_SCALE = 0.88; // 方块绘制比例
+const CELL = 4;
+const DOT_SCALE = 0.9;
 const COLLAPSE_MS = 900;
 const HOLD_MS = 2000;
 const ASSEMBLE_MS = 900;
-const SWIRL_TURNS = 1.2; // 塌陷 / 组合过程中的旋转圈数
+const SWIRL_TURNS = 1.2;
 const BG = "#000319";
+const TINT = { r: 203, g: 172, b: 249 }; // #CBACF9
+const TINT_STRENGTH = 0.1;
 
 const AVATAR_SRC = "/avatar.jpg";
 const CAT_SRC = "/cat-welcome.png";
@@ -28,7 +28,6 @@ type Particle = {
 const loadParticles = (src: string): Promise<Particle[]> =>
   new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = "anonymous";
     img.onload = () => {
       const off = document.createElement("canvas");
       off.width = W;
@@ -54,18 +53,29 @@ const loadParticles = (src: string): Promise<Particle[]> =>
         sy = (img.height - sh) / 2;
       }
       octx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
-      const data = octx.getImageData(0, 0, W, H).data;
+      let data: Uint8ClampedArray;
+      try {
+        data = octx.getImageData(0, 0, W, H).data;
+      } catch (e) {
+        // 跨域兜底：直接返回空，仍不影响组件可渲染
+        resolve([]);
+        return;
+      }
       const parts: Particle[] = [];
       for (let y = 0; y < H; y += CELL) {
         for (let x = 0; x < W; x += CELL) {
           const cx = Math.min(W - 1, x + (CELL >> 1));
           const cy = Math.min(H - 1, y + (CELL >> 1));
           const idx = (cy * W + cx) * 4;
-          const r = data[idx];
-          const g = data[idx + 1];
-          const b = data[idx + 2];
           const a = data[idx + 3];
           if (a < 8) continue;
+          let r = data[idx];
+          let g = data[idx + 1];
+          let b = data[idx + 2];
+          // 轻微紫色调
+          r = Math.round(r * (1 - TINT_STRENGTH) + TINT.r * TINT_STRENGTH);
+          g = Math.round(g * (1 - TINT_STRENGTH) + TINT.g * TINT_STRENGTH);
+          b = Math.round(b * (1 - TINT_STRENGTH) + TINT.b * TINT_STRENGTH);
           parts.push({
             x: x + CELL / 2,
             y: y + CELL / 2,
@@ -75,16 +85,15 @@ const loadParticles = (src: string): Promise<Particle[]> =>
       }
       resolve(parts);
     };
-    img.onerror = reject;
+    img.onerror = () => reject(new Error(`load fail: ${src}`));
     img.src = src;
   });
 
-const drawStatic = (
+const paintStatic = (
   ctx: CanvasRenderingContext2D,
-  parts: Particle[],
-  bg: string
+  parts: Particle[]
 ) => {
-  ctx.fillStyle = bg;
+  ctx.fillStyle = BG;
   ctx.fillRect(0, 0, W, H);
   const sz = CELL * DOT_SCALE;
   for (let i = 0; i < parts.length; i++) {
@@ -94,13 +103,12 @@ const drawStatic = (
   }
 };
 
-// mode: "collapse" 塌陷（粒子→中心） / "assemble" 组合（中心→粒子）
+// mode: "collapse" 粒子→中心 / "assemble" 中心→粒子
 const runAnim = (
   ctx: CanvasRenderingContext2D,
   parts: Particle[],
   mode: "collapse" | "assemble",
-  duration: number,
-  bg: string
+  duration: number
 ): Promise<void> =>
   new Promise((resolve) => {
     const t0 = performance.now();
@@ -108,10 +116,9 @@ const runAnim = (
     const cy = H / 2;
     const step = (now: number) => {
       const t = Math.min(1, (now - t0) / duration);
-      // 塌陷：easeInCubic（后段加速）；组合：easeOutCubic（前段快）
       const eased =
         mode === "collapse" ? t * t * t : 1 - Math.pow(1 - t, 3);
-      ctx.fillStyle = bg;
+      ctx.fillStyle = BG;
       ctx.fillRect(0, 0, W, H);
       const swirl = eased * SWIRL_TURNS * Math.PI * 2;
       for (let i = 0; i < parts.length; i++) {
@@ -123,7 +130,9 @@ const runAnim = (
         const rFactor = mode === "collapse" ? 1 - eased : eased;
         const r = r0 * rFactor;
         const theta =
-          mode === "collapse" ? theta0 + swirl : theta0 - (1 - eased) * SWIRL_TURNS * Math.PI * 2;
+          mode === "collapse"
+            ? theta0 + swirl
+            : theta0 - (1 - eased) * SWIRL_TURNS * Math.PI * 2;
         const x = cx + r * Math.cos(theta);
         const y = cy + r * Math.sin(theta);
         const sizeFactor =
@@ -148,24 +157,30 @@ const runAnim = (
   });
 
 export const ShatterAvatar = () => {
-  const [phase, setPhase] = useState<Phase>("idle");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const avatarPartsRef = useRef<Particle[]>([]);
-  const catPartsRef = useRef<Particle[]>([]);
-  const readyRef = useRef(false);
+  const [ready, setReady] = useState(false);
+  const [phase, setPhase] = useState<Phase>("idle");
+  const phaseRef = useRef<Phase>("idle");
 
-  // 预加载粒子数据（只做一次）
+  // 预加载头像粒子 → 绘制 idle
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [a, c] = await Promise.all([
-        loadParticles(AVATAR_SRC),
-        loadParticles(CAT_SRC),
-      ]);
-      if (cancelled) return;
-      avatarPartsRef.current = a;
-      catPartsRef.current = c;
-      readyRef.current = true;
+      try {
+        const parts = await loadParticles(AVATAR_SRC);
+        if (cancelled) return;
+        avatarPartsRef.current = parts;
+        setReady(true);
+        const c = canvasRef.current;
+        if (c) {
+          const ctx = c.getContext("2d");
+          if (ctx && phaseRef.current === "idle") paintStatic(ctx, parts);
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error("[ShatterAvatar] avatar load failed", e);
+      }
     })();
     return () => {
       cancelled = true;
@@ -173,85 +188,56 @@ export const ShatterAvatar = () => {
   }, []);
 
   const handleClick = useCallback(async () => {
-    if (phase !== "idle" || !readyRef.current) return;
+    if (phaseRef.current !== "idle" || !ready) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    const parts = avatarPartsRef.current;
+    if (!parts.length) return;
 
-    // 1) 塌陷：头像粒子 → 中心
+    // 1) 塌陷：头像粒子向中心螺旋收缩
+    phaseRef.current = "collapse";
     setPhase("collapse");
-    // 第一帧先铺静态头像，避免 PixelatedCanvas 切到空白的闪烁
-    drawStatic(ctx, avatarPartsRef.current, BG);
-    await new Promise((r) => requestAnimationFrame(r));
-    await runAnim(ctx, avatarPartsRef.current, "collapse", COLLAPSE_MS, BG);
+    await runAnim(ctx, parts, "collapse", COLLAPSE_MS);
 
-    // 2) 猫图停留
+    // 2) 展示猫图 2s
+    phaseRef.current = "cat";
     setPhase("cat");
     await new Promise((r) => setTimeout(r, HOLD_MS));
 
-    // 3) 组合回头像：粒子从中心 → 各自位置
+    // 3) 组合回头像：粒子从中心螺旋展开
+    phaseRef.current = "assemble";
     setPhase("assemble");
-    // 初始全黑，粒子会从中心弹出
     ctx.fillStyle = BG;
     ctx.fillRect(0, 0, W, H);
-    await new Promise((r) => requestAnimationFrame(r));
-    await runAnim(ctx, avatarPartsRef.current, "assemble", ASSEMBLE_MS, BG);
+    await runAnim(ctx, parts, "assemble", ASSEMBLE_MS);
 
-    // 4) 回到 idle（PixelatedCanvas 重新接管）
+    // 4) 回 idle
+    phaseRef.current = "idle";
     setPhase("idle");
-  }, [phase]);
+    paintStatic(ctx, parts);
+  }, [ready]);
 
   return (
     <div
       onClick={handleClick}
       className={`relative select-none ${
-        phase === "idle" ? "cursor-pointer" : "cursor-default"
+        phase === "idle" && ready ? "cursor-pointer" : "cursor-default"
       }`}
       role="button"
       aria-label="点击头像切换"
       style={{ width: W, height: H }}
     >
-      {/* idle：PixelatedCanvas（保留 hover swirl 交互） */}
-      {phase === "idle" && (
-        <PixelatedCanvas
-          src={AVATAR_SRC}
-          width={W}
-          height={H}
-          cellSize={3}
-          dotScale={0.88}
-          shape="square"
-          backgroundColor={BG}
-          dropoutStrength={0.3}
-          interactive
-          distortionStrength={4}
-          distortionRadius={90}
-          distortionMode="swirl"
-          followSpeed={0.15}
-          jitterStrength={3}
-          jitterSpeed={3}
-          sampleAverage
-          tintColor="#CBACF9"
-          tintStrength={0.1}
-          className="rounded-2xl border border-white/[0.1] shadow-[0_0_40px_rgba(203,172,249,0.15)]"
-        />
-      )}
-
-      {/* collapse / assemble：自绘粒子 canvas */}
       <canvas
         ref={canvasRef}
         width={W}
         height={H}
-        className="absolute inset-0 rounded-2xl border border-white/[0.1] shadow-[0_0_40px_rgba(203,172,249,0.15)]"
-        style={{
-          display:
-            phase === "collapse" || phase === "assemble" ? "block" : "none",
-          width: W,
-          height: H,
-        }}
+        className="block rounded-2xl border border-white/[0.1] shadow-[0_0_40px_rgba(203,172,249,0.15)]"
+        style={{ width: W, height: H, background: BG }}
       />
 
-      {/* cat：静态猫图「营业中·欢迎光临」 */}
+      {/* cat：静态猫图「营业中·欢迎光临」，覆盖在 canvas 之上 */}
       {phase === "cat" && (
         <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-white/[0.1] bg-white overflow-hidden shadow-[0_0_40px_rgba(203,172,249,0.25)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -261,6 +247,13 @@ export const ShatterAvatar = () => {
             className="w-full h-full object-contain p-4"
             draggable={false}
           />
+        </div>
+      )}
+
+      {/* loading 提示（仅粒子还没采样完的极短窗口） */}
+      {!ready && (
+        <div className="absolute inset-0 flex items-center justify-center text-xs text-white/30 tracking-widest">
+          LOADING…
         </div>
       )}
     </div>
