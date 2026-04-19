@@ -15,6 +15,20 @@ export const VennRotating = () => {
   const W = 740;
   const H = 560;
 
+  // 圆上精确点：给定角度(度)取 (cx + R·cos, cy + R·sin)
+  // SVG 中 y 向下，所以 angle=90° 对应"下方"，angle=270° 对应"上方"
+  const pt = (cx: number, cy: number, deg: number) => {
+    const r = (deg * Math.PI) / 180;
+    return `${cx + R * Math.cos(r)} ${cy + R * Math.sin(r)}`;
+  };
+
+  // 左圆：左下弧段，从 155° 扫到 95°（走下边缘左下）
+  const leftArcStart = pt(CX1, CY, 155);
+  const leftArcEnd = pt(CX1, CY, 95);
+  // 右圆：右上弧段，从 -25° 扫到 -85°（走上边缘右上）
+  const rightArcStart = pt(CX2, CY, -25);
+  const rightArcEnd = pt(CX2, CY, -85);
+
   return (
     <div
       className="relative w-full h-full flex items-center justify-center overflow-hidden"
@@ -95,11 +109,9 @@ export const VennRotating = () => {
             strokeWidth="1.6"
             strokeDasharray="3 7"
           />
-          {/* 左下粗亮弧段 — 纯黑 */}
+          {/* 左下粗亮弧段 — 纯黑，精确贴在圆周 */}
           <path
-            d={`M ${CX1 - R * 0.82} ${CY + R * 0.58}
-                A ${R} ${R} 0 0 1
-                  ${CX1 + R * 0.02} ${CY + R}`}
+            d={`M ${leftArcStart} A ${R} ${R} 0 0 0 ${leftArcEnd}`}
             fill="none"
             stroke="#141210"
             strokeWidth="3"
@@ -123,11 +135,9 @@ export const VennRotating = () => {
             strokeWidth="1.6"
             strokeDasharray="3 7"
           />
-          {/* 右上粗亮弧段 — 纯黑 */}
+          {/* 右上粗亮弧段 — 纯黑，精确贴在圆周 */}
           <path
-            d={`M ${CX2 + R * 0.82} ${CY - R * 0.58}
-                A ${R} ${R} 0 0 0
-                  ${CX2 - R * 0.02} ${CY - R}`}
+            d={`M ${rightArcStart} A ${R} ${R} 0 0 0 ${rightArcEnd}`}
             fill="none"
             stroke="#141210"
             strokeWidth="3"
