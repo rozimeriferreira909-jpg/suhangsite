@@ -86,9 +86,10 @@ export const projects = [
   },
   {
     id: 2,
-    title: "智能简历解析系统",
-    des: "利用 NLP 技术自动解析简历结构化信息，支持多格式导入，结合大模型进行智能匹配与推荐，提升 HR 筛选效率 3 倍以上。",
+    title: "苏苏一人公司系统",
+    des: "苏苏一人公司系统，与君共享。",
     img: "/linear.png",
+    customVisual: "venn",
     iconLists: [
       "/next.svg",
       "/tail.svg",
@@ -96,7 +97,7 @@ export const projects = [
       "/three.svg",
       "/fm.svg",
     ],
-    link: "https://github.com/suhang",
+    link: "https://www.suhangcompany.site",
   },
   {
     id: 3,

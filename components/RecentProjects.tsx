@@ -3,6 +3,7 @@
 import { FaLocationArrow } from "react-icons/fa6";
 import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
+import { VennRotating } from "./ui/VennRotating";
 
 const RecentProjects = () => {
   return (
@@ -12,7 +13,8 @@ const RecentProjects = () => {
         <span className="text-purple">项目作品</span>
       </h1>
       <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
-        {projects.map(({ id, title, des, img, iconLists, link }: any) => (
+        {projects.map(
+          ({ id, title, des, img, iconLists, link, customVisual }: any) => (
           <div
             className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw] cursor-pointer"
             key={id}
@@ -28,11 +30,17 @@ const RecentProjects = () => {
                 >
                   <img src="/bg.png" alt="bgimg" />
                 </div>
-                <img
-                  src={img}
-                  alt="cover"
-                  className="z-10 absolute bottom-0 rounded-xl"
-                />
+                {customVisual === "venn" ? (
+                  <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
+                    <VennRotating />
+                  </div>
+                ) : (
+                  <img
+                    src={img}
+                    alt="cover"
+                    className="z-10 absolute bottom-0 rounded-xl"
+                  />
+                )}
               </div>
 
               <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
