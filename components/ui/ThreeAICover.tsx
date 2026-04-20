@@ -67,7 +67,7 @@ export const ThreeAICover = () => {
           color: "rgba(20,22,40,0.55)",
         }}
       >
-        Claude、Gemini、Codex 在你本机协同——互相拆台、互相补位、互相打分。
+        Claude Code、Gemini CLI、Codex 在你本机协同——互相拆台、互相补位、互相打分。
         <br className="hidden sm:block" />
         全部数据留在你 Mac 上，不走云端。
       </p>

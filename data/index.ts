@@ -102,7 +102,7 @@ export const projects = [
   {
     id: 3,
     title: "让三个 AI 替你把想法辩清楚",
-    des: "Claude、Gemini、Codex 在你本机协同——互相拆台、互相补位、互相打分。全部数据留在你 Mac 上，不走云端。",
+    des: "Claude Code、Gemini CLI、Codex 在你本机协同——互相拆台、互相补位、互相打分。全部数据留在你 Mac 上，不走云端。",
     img: "/wiki.jpg",
     customVisual: "three-ai",
     iconLists: [
