@@ -101,9 +101,10 @@ export const projects = [
   },
   {
     id: 3,
-    title: "电商数据看板",
-    des: "基于 React + ECharts 打造的实时数据可视化平台，支持多维度数据分析、自定义报表生成，日均处理 10 万+ 数据条目。",
+    title: "让三个 AI 替你把想法辩清楚",
+    des: "Claude、Gemini、Codex 在你本机协同——互相拆台、互相补位、互相打分。全部数据留在你 Mac 上，不走云端。",
     img: "/wiki.jpg",
+    customVisual: "three-ai",
     iconLists: [
       "/next.svg",
       "/tail.svg",
@@ -111,7 +112,7 @@ export const projects = [
       "/three.svg",
       "/fm.svg",
     ],
-    link: "https://github.com/suhang",
+    link: "https://www.suhangaichat.site",
   },
   {
     id: 4,

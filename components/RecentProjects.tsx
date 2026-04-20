@@ -4,6 +4,7 @@ import { FaLocationArrow } from "react-icons/fa6";
 import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
 import { VennRotating } from "./ui/VennRotating";
+import { ThreeAICover } from "./ui/ThreeAICover";
 
 const RecentProjects = () => {
   return (
@@ -33,6 +34,10 @@ const RecentProjects = () => {
                 {customVisual === "venn" ? (
                   <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
                     <VennRotating />
+                  </div>
+                ) : customVisual === "three-ai" ? (
+                  <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
+                    <ThreeAICover />
                   </div>
                 ) : (
                   <img
