@@ -4,6 +4,7 @@ import { FaLocationArrow } from "react-icons/fa6";
 import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
 import { ThreeAICover } from "./ui/ThreeAICover";
+import { EmptyCover } from "./ui/EmptyCover";
 
 const RecentProjects = () => {
   return (
@@ -34,6 +35,10 @@ const RecentProjects = () => {
                   <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
                     <ThreeAICover />
                   </div>
+                ) : customVisual === "empty" ? (
+                  <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
+                    <EmptyCover />
+                  </div>
                 ) : (
                   <img
                     src={img}
@@ -57,34 +62,36 @@ const RecentProjects = () => {
                 {des}
               </p>
 
-              <div className="flex items-center justify-between mt-7 mb-3">
-                <div className="flex items-center">
-                  {iconLists.map((icon: string, index: number) => (
-                    <div
-                      key={index}
-                      className="border border-black/[.5] rounded-full bg-white-100 lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                      style={{
-                        transform: `translateX(-${5 * index + 2}px)`,
-                      }}
-                    >
-                      <img src={icon} alt="icon5" className="p-2" />
-                    </div>
-                  ))}
-                </div>
+              {customVisual !== "empty" && (
+                <div className="flex items-center justify-between mt-7 mb-3">
+                  <div className="flex items-center">
+                    {iconLists.map((icon: string, index: number) => (
+                      <div
+                        key={index}
+                        className="border border-black/[.5] rounded-full bg-white-100 lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                        style={{
+                          transform: `translateX(-${5 * index + 2}px)`,
+                        }}
+                      >
+                        <img src={icon} alt="icon5" className="p-2" />
+                      </div>
+                    ))}
+                  </div>
 
-                <div className="flex justify-center items-center">
-                  <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="flex lg:text-xl md:text-xs text-sm text-purple font-bold"
-                  >
-                    查看详情
-                  </a>
-                  <FaLocationArrow className="ms-3" color="#CBACF9" />
+                  <div className="flex justify-center items-center">
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex lg:text-xl md:text-xs text-sm text-purple font-bold"
+                    >
+                      查看详情
+                    </a>
+                    <FaLocationArrow className="ms-3" color="#CBACF9" />
+                  </div>
                 </div>
-              </div>
+              )}
             </PinContainer>
           </div>
         ))}

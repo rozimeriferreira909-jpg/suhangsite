@@ -113,6 +113,15 @@ export const projects = [
     ],
     link: "https://github.com/suhang",
   },
+  {
+    id: 5,
+    title: "",
+    des: "",
+    img: "",
+    customVisual: "empty",
+    iconLists: [],
+    link: "",
+  },
 ];
 
 export const testimonials = [
