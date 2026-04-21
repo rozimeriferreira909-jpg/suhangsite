@@ -85,21 +85,6 @@ export const projects = [
     link: "https://zhengzaiyujian.cn",
   },
   {
-    id: 2,
-    title: "苏苏一人公司系统",
-    des: "苏苏一人公司系统，与君共享。",
-    img: "/linear.png",
-    customVisual: "venn",
-    iconLists: [
-      "/next.svg",
-      "/tail.svg",
-      "/ts.svg",
-      "/three.svg",
-      "/fm.svg",
-    ],
-    link: "https://www.suhangcompany.site",
-  },
-  {
     id: 3,
     title: "让三个 AI 替你把想法辩清楚",
     des: "Claude Code、Gemini CLI、Codex 在你本机协同——互相拆台、互相补位、互相打分。全部数据留在你 Mac 上，不走云端。",
