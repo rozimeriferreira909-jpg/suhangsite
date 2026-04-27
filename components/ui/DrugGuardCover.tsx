@@ -67,15 +67,6 @@ export const DrugGuardCover = () => {
         </div>
       </div>
 
-      {/* 底部：两行小字 */}
-      <p
-        className="mt-auto text-[clamp(10px,1.3vw,14px)] leading-[1.7]"
-        style={{ color: "rgba(242,234,217,0.65)" }}
-      >
-        五六种慢病药混着吃，相互作用肉眼看不见。
-        <br />
-        替你扫一遍，守护家人用药安全。
-      </p>
     </div>
   );
 };
