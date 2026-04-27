@@ -5,6 +5,7 @@ import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
 import { ThreeAICover } from "./ui/ThreeAICover";
 import { EmptyCover } from "./ui/EmptyCover";
+import { ZhiWeiCover } from "./ui/ZhiWeiCover";
 
 const RecentProjects = () => {
   return (
@@ -34,6 +35,10 @@ const RecentProjects = () => {
                 {customVisual === "three-ai" ? (
                   <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
                     <ThreeAICover />
+                  </div>
+                ) : customVisual === "zhi-wei" ? (
+                  <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
+                    <ZhiWeiCover />
                   </div>
                 ) : customVisual === "empty" ? (
                   <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">

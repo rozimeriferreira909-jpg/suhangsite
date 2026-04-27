@@ -115,12 +115,17 @@ export const projects = [
   },
   {
     id: 5,
-    title: "",
-    des: "",
+    title: "知味 · Three picks",
+    des: "Three picks. Nothing extra, nothing hidden. — 每日精选三样，不多不藏。",
     img: "",
-    customVisual: "empty",
-    iconLists: [],
-    link: "",
+    customVisual: "zhi-wei",
+    iconLists: [
+      "/next.svg",
+      "/tail.svg",
+      "/ts.svg",
+      "/fm.svg",
+    ],
+    link: "https://foodcap.site",
   },
 ];
 
