@@ -16,7 +16,6 @@ import Clients from "@/components/Clients";
 import Experience from "@/components/Experience";
 import Approach from "@/components/Approach";
 import Footer from "@/components/Footer";
-import OneCompanyBanner from "@/components/OneCompanyBanner";
 
 const Home = () => {
   return (
@@ -33,7 +32,6 @@ const Home = () => {
         <RecentProjects />
         {/* <Clients /> */}
         <Experience />
-        <OneCompanyBanner />
         <Approach />
         <Footer />
       </div>

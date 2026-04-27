@@ -2,6 +2,7 @@ import React from "react";
 
 import { workExperience } from "@/data";
 import { Button } from "./ui/MovingBorders";
+import OneCompanyBanner from "./OneCompanyBanner";
 
 const ExperienceCard = ({ card }: { card: (typeof workExperience)[0] }) => (
   <Button
@@ -42,6 +43,11 @@ const Experience = () => {
       <p className="text-center text-white-100 mt-4 mb-2 text-sm md:text-base max-w-2xl mx-auto opacity-80">
         16 个专业 Agent 覆盖产品全生命周期，从需求到上线的完整自动化流水线
       </p>
+
+      {/* 一人公司架构 横幅（Venn 双圆） */}
+      <div className="mt-10 mb-4">
+        <OneCompanyBanner />
+      </div>
 
       <div className="w-full mt-12 flex flex-col gap-8 items-center max-w-4xl mx-auto">
         {workExperience.map((card) => (
