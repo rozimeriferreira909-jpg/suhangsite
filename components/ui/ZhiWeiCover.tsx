@@ -39,29 +39,15 @@ export const ZhiWeiCover = () => {
         {/* 顶部：知味大字 + 拼音 */}
         <div className="flex items-start gap-4">
           {/* 竖排"知/味" */}
-          <div className="relative leading-[0.95]">
+          <div className="leading-[0.95]">
             <div
               className="text-[clamp(36px,7vw,68px)]"
               style={{ fontWeight: 800, letterSpacing: "-0.02em" }}
             >
               知
             </div>
-            {/* 红点 */}
-            <span
-              className="absolute"
-              style={{
-                top: "calc(clamp(36px,7vw,68px) * 0.92)",
-                left: "44%",
-                width: "0.42em",
-                height: "0.42em",
-                fontSize: "clamp(36px,7vw,68px)",
-                background: "#C8332B",
-                borderRadius: "9999px",
-                transform: "translate(-50%, 0)",
-              }}
-            />
             <div
-              className="text-[clamp(36px,7vw,68px)] mt-[0.22em]"
+              className="text-[clamp(36px,7vw,68px)] mt-[0.18em]"
               style={{ fontWeight: 800, letterSpacing: "-0.02em" }}
             >
               味
