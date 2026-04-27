@@ -6,6 +6,7 @@ import { PinContainer } from "./ui/Pin";
 import { ThreeAICover } from "./ui/ThreeAICover";
 import { EmptyCover } from "./ui/EmptyCover";
 import { ZhiWeiCover } from "./ui/ZhiWeiCover";
+import { DrugGuardCover } from "./ui/DrugGuardCover";
 
 const RecentProjects = () => {
   return (
@@ -39,6 +40,10 @@ const RecentProjects = () => {
                 ) : customVisual === "zhi-wei" ? (
                   <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
                     <ZhiWeiCover />
+                  </div>
+                ) : customVisual === "drug-guard" ? (
+                  <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">
+                    <DrugGuardCover />
                   </div>
                 ) : customVisual === "empty" ? (
                   <div className="z-10 absolute inset-0 rounded-xl overflow-hidden">

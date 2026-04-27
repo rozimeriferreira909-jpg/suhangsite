@@ -101,17 +101,17 @@ export const projects = [
   },
   {
     id: 4,
-    title: "全栈博客系统",
-    des: "从零搭建的个人博客平台，支持 Markdown 写作、标签分类、全文搜索、暗黑模式，前端 Next.js + 后端 Node.js + 数据库 PostgreSQL。",
-    img: "/driver.svg",
+    title: "用药守护 · DRUG GUARD",
+    des: "智能识别药物冲突。五六种慢病药混着吃，相互作用肉眼看不见，替你扫一遍，守护家人用药安全。",
+    img: "",
+    customVisual: "drug-guard",
     iconLists: [
       "/next.svg",
       "/tail.svg",
       "/ts.svg",
-      "/three.svg",
       "/fm.svg",
     ],
-    link: "https://github.com/suhang",
+    link: "https://susuyao.site/login",
   },
   {
     id: 5,
